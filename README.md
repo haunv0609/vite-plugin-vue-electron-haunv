@@ -1,4 +1,4 @@
-# vue-cli-plugin-electron-haunv
+# vite-plugin-vue-electron-haunv
 
 > A Vue VITE plugin for building Windows desktop apps with Electron.
 
@@ -7,11 +7,11 @@
 ## Installation
 Step 1:
 ```bash
-npm install vue-cli-plugin-electron-haunv
+npm install vite-plugin-vue-electron-haunv
 ```
 Step 2:
 ```bash
-npx vue-cli-plugin-electron-haunv
+npx vite-plugin-vue-electron-haunv
 ```
 
 After running, the following will be generated:
