@@ -1,0 +1,35 @@
+{
+    "appId": "com.haunv.app",
+    "productName": "MyApp",
+    "directories": {
+        "output": "dist_electron"
+    },
+    "files": [
+        "dist/**/*",
+        "electron/**/*",
+        "package.json"
+    ],
+    "extraMetadata": {
+        "main": "electron/main.cjs"
+    },
+    "win": {
+        "target": [
+            {
+                "target": "nsis",
+                "arch": [
+                    "x64"
+                ]
+            },
+            {
+                "target": "portable",
+                "arch": [
+                    "x64"
+                ]
+            }
+        ]
+    },
+    "nsis": {
+        "oneClick": false,
+        "allowToChangeInstallationDirectory": true
+    }
+}
