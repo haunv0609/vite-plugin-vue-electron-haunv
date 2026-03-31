@@ -26,7 +26,8 @@
   "dependencies": {
     "chokidar": "latest",
     "get-port": "latest",
-    "tree-kill": "latest"
+    "tree-kill": "latest",
+    "wait-on": "latest"
   },
   "devDependencies": {
     "@tomjs/electron-devtools-installer": "^4.0.1"
