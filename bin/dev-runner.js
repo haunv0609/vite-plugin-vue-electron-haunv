@@ -1,5 +1,5 @@
 const { spawn } = require("child_process")
-const waitOn = require("wait-on")
+const http = require("http")
 const getPort = require("get-port").default
 const chokidar = require("chokidar")
 const kill = require("tree-kill")
@@ -8,6 +8,27 @@ const electron = require("electron")
 let electronProcess
 let port
 let viteProcess
+
+function waitForServer(url, { interval = 500, timeout = 60000 } = {}) {
+    return new Promise((resolve, reject) => {
+        const deadline = Date.now() + timeout
+
+        function poll() {
+            http.get(url, (res) => {
+                res.resume()
+                resolve()
+            }).on("error", () => {
+                if (Date.now() >= deadline) {
+                    reject(new Error(`Timeout waiting for ${url}`))
+                } else {
+                    setTimeout(poll, interval)
+                }
+            })
+        }
+
+        setTimeout(poll, 1000)
+    })
+}
 
 async function run() {
     port = await getPort({ port: [5173, 5174, 5175, 8080, 8081] })
@@ -20,10 +41,7 @@ async function run() {
 
     // Wait for Vite to be ready
     console.log(`Waiting for Vite dev server on http://localhost:${port} ...`)
-    await waitOn({
-        resources: [`http://localhost:${port}`],
-        timeout: 30000
-    })
+    await waitForServer(`http://localhost:${port}`)
     console.log("Vite ready — starting Electron...")
 
     startElectron()
@@ -51,10 +69,10 @@ function startElectron() {
         console.log("Electron closed — stopping dev server...")
         if (viteProcess && viteProcess.pid) {
             kill(viteProcess.pid, () => {
-                process.exit(code ?? 0);
-            });
+                process.exit(code ?? 0)
+            })
         } else {
-            process.exit(code ?? 0);
+            process.exit(code ?? 0)
         }
     })
 }
