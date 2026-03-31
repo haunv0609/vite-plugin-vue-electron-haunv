@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-vue-electron-haunv",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Vite plugin to integrate Electron into Vue 3 + Vite projects",
   "main": "index.js",
   "bin": {
